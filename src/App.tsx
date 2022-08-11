@@ -52,13 +52,20 @@ function App() {
         <h2>Register</h2>
         <div className={styles.inputContainer}>
           <label>Lastname</label>
+
           <input
-            placeholder="Jon"
-            autoComplete="off"
             className={styles.nameInput}
-            {...register("lastName", { required: true, maxLength: 20 })}
+            type="lastName"
+            {...register("lastName", {
+              required: "Field is required",
+              maxLength: 10,
+              pattern: {
+                value: /^[A-Za-z]+$/i,
+                message: "No spaces allowed",
+              },
+            })}
           />
-          {errors.lastName && <p>Field is required</p>}
+          {<p> {errors.lastName && errors.lastName.message}</p>}
 
           <label>Surname</label>
           <input
@@ -100,7 +107,7 @@ function App() {
 
             <input
               className={styles.checkGender}
-              type="checkbox"
+              type="radio"
               value="male"
               {...register("male", {
                 required: !gender.female && !gender.male,
@@ -110,7 +117,7 @@ function App() {
             <label>Female</label>
             <input
               className={styles.checkGender}
-              type="checkbox"
+              type="radio"
               value="female"
               {...register("female", {
                 required: !gender.male && !gender.female,
@@ -125,9 +132,9 @@ function App() {
               English
             </option>
             <option value="Deutch">Deutch</option>
-            <option value="spanish">spanish</option>
+            <option value="spanish">Spanish</option>
             <option value="Urdu">Urdu</option>
-            <option value="Hindo">Hindi</option>
+            <option value="Hindi">Hindi</option>
             <option value="Greek">Greek</option>
             <option value="french">French</option>
             <option value="Zulu">Zulu</option>
@@ -137,7 +144,7 @@ function App() {
         {errors.language && <p>Field is required</p>}
 
         <div className={styles.buttonContainer}>
-          <button>Sumbit</button>
+          <button>Submit</button>
         </div>
       </form>
     </div>
